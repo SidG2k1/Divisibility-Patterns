@@ -1,0 +1,19 @@
+\textbf {Research Question:} What interesting patterns can be found in the simple divisor function?\\
+\textbf {Thesis:} The divisor function is embedded with patterns such as densities of different values of $\sigma $, minimum starting values of $\sigma $, empty spaces in the log-log interpretation of divisor density, and a link between $\sigma $ and $\pi $. \par 
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}Plotting $\sigma (n)$}{5}
+\contentsline {section}{\numberline {3}Analysis }{8}
+\contentsline {subsection}{\numberline {3.1}The Lines}{8}
+\contentsline {subsection}{\numberline {3.2}The Number of Points in a Line}{10}
+\contentsline {subsection}{\numberline {3.3}Starting Points of Lines}{12}
+\contentsline {subsection}{\numberline {3.4}The Empty Spaces}{17}
+\contentsline {subsubsection}{\numberline {3.4.1}The Bottom Left}{17}
+\contentsline {subsubsection}{\numberline {3.4.2}The Top Right}{17}
+\contentsline {subsection}{\numberline {3.5}Computing the Proportionality Constant}{19}
+\contentsline {section}{\numberline {4}Conclusion}{22}
+\contentsline {section}{\numberline {5}Appendix}{23}
+\contentsline {subsection}{\numberline {5.1}Divisor Function}{23}
+\contentsline {subsection}{\numberline {5.2}All Data}{23}
+\contentsline {subsection}{\numberline {5.3}Top Row}{23}
+\contentsline {subsection}{\numberline {5.4}Finding the Proportionality Constant}{24}
+\contentsline {section}{\numberline {6}References}{25}

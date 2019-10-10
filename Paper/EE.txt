@@ -1,0 +1,794 @@
+Exploring Patterns in the Divisor Function
+Siddharth Gupta
+September 4, 2018
+
+Word Count: 2873
+
+1
+
+Contents
+1 Introduction
+
+3
+
+2 Ways to Plot σ(n)
+
+4
+
+3
+
+Analysis
+3.1 The Lines . . . . . . . . . . . . . . . . .
+3.2 The Number of Points in a Line . . . . .
+3.3 Starting Points of Lines . . . . . . . . .
+3.4 The Empty Spaces . . . . . . . . . . . .
+3.4.1 The Bottom Left . . . . . . . . .
+3.4.2 The Top Right . . . . . . . . . .
+3.5 Computing the Proportionality Constant
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+.
+.
+
+6
+6
+8
+9
+13
+13
+13
+15
+
+4 Conclusion
+
+17
+
+5 Appendix
+5.1 Code . . . . . . . . . . . . . . . . . . . . . .
+5.1.1 Divisor Function . . . . . . . . . . .
+5.1.2 All Data . . . . . . . . . . . . . . . .
+5.1.3 Top Row . . . . . . . . . . . . . . . .
+5.1.4 Finding the Proportionality Constant
+
+18
+18
+18
+18
+18
+19
+
+6 References
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+20
+
+2
+
+1
+
+Introduction
+
+My interest in the divisor function stems from my interest in computing
+and cryptography. In a cryptosystem1 known as RSA, primes are extremely
+important because of the property that they only have two divisors (Steyn,
+2012). Once I found out about this, I became interested in number theory,
+primes, and their properties– which led me to the divisor function. The
+divisor function is very simple in its essence– it counts the number of factors
+a positive integer has. For example, if n is prime, then divisor(n) = 2. In
+the math community, the divisor funtion is represented by the Greek letter
+sigma2 σ. As such, primes can be defined as n ∈ prime ⇐⇒ σ(n) = 2. As I
+decided to dive deeper into the divisor function as a whole, I asked: what
+pattens can be found in the divisor function? This research question
+is worthy of investigation because it hasn’t been investigated in such detail
+before, and it has applications in cryptography, number theory, and algebraic
+geometry. This essay extensively uses python3 and Wolfram Mathematica4
+for numerical analysis and plotting respectively. This essay uses mathematics
+from fields such as calculus, statistics, set theory, number theory, and more
+to help answer the research question.
+
+1
+
+a system of algorithms used to encrypt information
+in a few papers it is written as τ , but this essay uses σ
+3
+a programming language
+4
+a mathematics package
+
+2
+
+3
+
+2
+
+Ways to Plot σ(n)
+
+Various graphs are used to better comprehend information and patterns
+depending on the type of data. The most common type is the Cartesian
+coordinate system implemented in the x-y plane. This is the simple Cartesian
+plot of σ(n):
+
+Figure 1: The plot of σ(n) for n ∈ {1, 2, 3, . . . , 1000}
+There are distinct horizontal lines created by the aggregation of points.
+Since the points on a horizontal line share a σ value, they have the same
+number of divisors. Even though some trends can be seen, σ(n) could vary
+widely between close numbers: making it ‘chaotic’ (Humphrys, n.d.). Due to
+this chaotic nature, finding more patterns and other interesting properties
+becomes very difficult. Not much information can be deciphered from this
+graph; but if the divisor density is taken into account, much more might be
+visible. Divisor density is a different measure of the number of divisors: it
+σ(n)
+measures the ratio of the number of divisors to the number itself:
+. For
+n
+the purposes of this essay, I will use a variant of the Greek letter sigma to
+4
+
+σ(n)
+represent divisor density ς(n) =
+. Divisor density may be a better choice
+n
+for looking at divisors as it balances the number of factors with the size of
+the number. The plot of ς(n) looks like this:
+
+Figure 2: The plot of ς(n) for n ∈ {1, 2, 3, . . . , 1000}
+Here it is seen that similar to figure 1, figure 2 has patterns of lines (in
+this case, they are curved). In fact, all points from the σ function have been
+transformed as such:
+
+
+σ(n)
+(n, σ(n)) → n,
+n
+This shows that the points which seem to follow curved lines in figure 2
+k
+actually fall on y = for k ∈ Z+ .
+n
+Here, linearising could help. For functions of the form y = kx−1 , using a
+log-log graph reorients the function to show as log(y) = log(k) − log(x) when
+plotted. This is the function ς(n) plotted on a log-log graph:
+
+5
+
+Figure 3: The plot of ς(n) for n ∈ {1, 2, 3, . . . , 105 } on a log-log graph
+This is a very useful plot because many patterns can be seen here regarding
+the distribution of numbers and their divisors. These pattens will be discussed
+and analysed in section 3. As I will be exploring patterns in ς through the
+lens of this plot, it is useful to have more data, so figure 3 is plotted with 105
+points instead of 103 .
+
+3
+
+Analysis
+
+3.1
+
+The Lines
+
+To explain the origination of the downward-sloping lines in figure 3, the
+function being plotted y = log(ς(log(n))) must be rearranged to the slopeintercept form of a line. Let y = log(ς(x)) and x = log(n) as per the log-log
+
+6
+
+graph.
+σ(n)
+n
+log(ς(n)) = log(σ(n)) − log n
+y = log(σ(n)) − x
+y = −x + log(σ(n))
+ς(n) =
+
+This implies that in the form y = mx + b, m = −1, and b = log(σ(n)).
+This result explains that each of the lines have a slope of −1 and start at
+a height of log(σ(n)).
+The slope of −1 does not come from some property of the factors, but
+σ(n)
+instead the definition of divisor density. Since ς(n) =
+, the −1 comes
+n
+σ(n)
+from the dividing by n operation. If ς was defined as k instead for any
+n
+constant k, then the slope would be −k. As such, the slope in this respect does
+not convey any relevant information and is just an artefact of the definition.
+Since all lines share the same slope, the only remaining differentiating
+factor is their y-intercept: b = log(σ(n)). If two lines are not coincident, but
+share the same slope, they must be parallel and have different y-intercepts.
+Since b = log(σ(n)), the y-intercept is determined by the number of factors
+the points in that line have. Thus, different lines have different results
+for σ(n). The clear conclusion is that each set of points on a line share a
+common number of divisors. The lowest line would have the lowest number
+of divisors. The set of numbers with the least factors are the prime numbers5
+as n ∈ primes ⇐⇒ σ(n) = 2. As such, the y-intercept of the lowest line
+is b = log(2). As the number of divisors increases, the height of the line
+increases.
+The interesting piece here is that in figure 3, the lines get more dense as ς
+and n increase. The explanation is that log(x) is an increasing function at a
+decreasing rate6 . This means that even though a line with numbers which
+have more divisors is higher, it won’t be spaced out as much.
+5
+6
+
+with the exclusion of σ(1) = 1
+(f (x) = log(x) ∧ x > 0) =⇒ (f 0 (x) > 0 ∧ f 00 (x) < 0)
+
+7
+
+3.2
+
+The Number of Points in a Line
+
+Figure 4: The plot of ς(n) for n ∈ {1, 2, 3, . . . , 1000} with σ(n) = 2 and
+σ(n) = 3 underlined
+Compare the lines representing σ(n) = 2 (underlined with green in figure 4)
+and σ(n) = 3 (underlined with red in figure 4). The prime-number line has
+significantly more points than the line with 3 divisors. Why?
+First off, what allows a number to have 3 factors? Usually numbers have
+an even number of factors as ab = c means a and b are factors of c (given
+a ∈ Z+ and b ∈ Z+ ). A possible method to count to number of factors is
+to repeat the process above an appropriate number of times and check how
+many distinct factors are found. Each time the ab = c process is confirmed, 2
+new factors are found- unless a = b. This means that c can be written as a2 meaning that c is a perfect square. The conclusion here is that if σ(c) is odd,
+c is a perfect square 7 .
+For a number to have 3 factors, it needs to be a square of a prime. To
+demonstrate, I’ll use a proof by contradiction using Euclid’s Lemma (Séroul,
+7
+
+σ(c) ≡ 1 mod 2 =⇒ ∃a ∈ Z+ : c = a2
+
+8
+
+2000). Suppose p is prime. If on the contrary there exists another number
+n ∈ Z+ such that it divides the square of the prime (i.e. n divides p2 with
+no remainder) and n is not 1, p, or p2 . Euclid’s Lemma states that “if n
+divides ab, and n is relatively prime to a, then n divides b”. Since p is prime,
+n is coprime to it. Applying the lemma with a = p and b = p implies that n
+divides p; thus contradicting that it is different from either 1 or p.
+For a number to have 3 factors, it has to be a square of a prime. Now the
+question remains, why does the line representing σ(n) = 3 have so few points?
+d x2
+2
+As σ(n) = 2 ⇐⇒ σ(n ) = 3, and x > 1 =⇒
+> 1, the ‘squaring’
+dx
+2
+transformation in σ(n ) takes the input and ‘spreads out’ the output8 . This
+means that in a range [1, k], for integer k ≥ 2, the amount of numbers with 2
+factors will be more than the amount of numbers with 3 factors. For example,
+{2, 3, 5} for σ(n) = 2 maps to {4, 9, 25} for σ(n) = 3.
+In addition to σ(n) = 3, it can be seen that the lines corresponding to
+odd factors are all less populated than the lines corresponding to even factors.
+As previously mentioned, odd factors implies the number is a perfect square.
+The concept that squaring ‘spreads’ a distribution, can be applied here again,
+to show why the lines corresponding to odd factors are less dense than the
+lines of even factors.
+
+3.3
+
+Starting Points of Lines
+
+Looking at figure 3, many as the σ value of the lines increases (correspond
+to the height of the line), they start at a higher n value. What causes this
+phenomenon?
+I wrote some code to isolate the start of each line9 by isolating the first
+number to reach a specific number of factors (for example, 192 is the first
+number to have 12 factors). Plotting the ς values for these on a log-log plot
+resulted in the following:
+8
+9
+
+∀(a > 1 ∧ b > 1 ∧ a 6= b) : |a − b| < |a2 − b2 |
+see Appendix 5.1.3
+
+9
+
+Figure 5: The plot of ς(n) on a log-log graph for the first values of n < 105
+which have a new number of factors
+Here, it is clear that there is a pattern regarding where a line starts. As
+seen in figure 1, the σ function is chaotic, so there is no effective approximation
+in elementary functions that can be used to manipulate into finding a pattern
+for figure 5.
+One method √
+to count the number of factors is to count the number of
+factors less than n and double that amount10 . Using this method,
+it can be
+√
+assumed that a very rough
+√ upper bound could be σ(n) < 2 n. Using this
+2 n
+1
+approximation, ς(n) <
+= 2n− 2 . Plotting this result shows:
+n
+10
+
+and then subtract 1 if n is a perfect square
+
+10
+
+1
+
+Figure 6: The ς(n) < 2n− 2 regression overlapped on figure 5
+1
+
+The upper bound of ς(n) < 2n− 2 is close for small values of n, but quickly
+worsens for larger values of ς. When taking into consideration that this is a
+log-log plot, the approximation seems worse– for example, near n ≈ 105 , ς
+−1
+and 2n 2 differ by almost a factor of 5.
+Simply looking at figure 6 shows the problem: a wrong slope.
+y = axk
+log y = log a + k log x
+log y = k log x + log a
+The equations above show that the slope of the line is controlled by the exponent, and the y-intercept is controlled by a constant coefficient. Correcting
+for the fact that this is a log-log plot, this means that the approximation has
+the wrong exponent. Decreasing the exponent would decrease the slope.
+
+11
+
+Simply by numerically manipulating the variables a and k, I found that
+2
+ς(n) < 3.2n− 3 works well:
+
+2
+
+Figure 7: The ς(n) < 3.2n− 3 regression overlapped on figure 5
+This upper bound is significantly better than the
+√ previous, and the fol− 23
+lowing graphic comparing the bounds 3.2n and 2 x with ς is effective in
+showcasing the drastic improvement:
+
+2
+
+1
+
+Figure 8: The upper bounds of ς(n) < 3.2n− 3 and ς(n) < 2n− 2 being
+compared
+The two bounds intersect at n ≈ 28.7, showing that the new upper bound
+is better for n ≥ 29.
+12
+
+3.4
+
+The Empty Spaces
+
+Going back to figure 3, there are two spaces which don’t have points: the
+bottom left, and the top right.
+3.4.1
+
+The Bottom Left
+
+As proven earlier, the lowest line constitute the prime numbers, which follow
+the line log y = − log x + log 2. Since primes have the fewest number of
+factors11 , they act as a limiting line for divisor density. Since no number
+can have any fewer factors11 , there are no points seen in the bottom left of
+figure 3. This is with the exclusion of n = 1 which has only 1 factor. This
+point can be seen to the right of the prime number line as expected, but since
+it is only 1 point, it is ignored for much of this essay.
+3.4.2
+
+The Top Right
+
+Opposite to the other empty space, the top right of figure 3 is also empty.
+Explaining this area is more tricky as there is no clear separating entity (unlike
+2
+the primes for the bottom left). As stated in section 3.3, ς(n) < 3.2n− 3 , so
+2
+the empty space is the area represented by y > 3.2x− 3 , or with respect to
+2x
+the log-log graph, log y > log(3.2) − .
+3
+Even though this may seem like a tempting conclusion, the result log y >
+2x
+log(3.2) −
+provides information with no understanding of the reason. Why
+3
+is this inequality preventing ς(n) from going any higher?
+Maybe going back to the basics might help: finding what this upper bound
+says about the standard divisor function.
+2
+
+ς(n) < 3.2n− 3
+2
+σ(n)
+< 3.2n− 3
+n
+1
+σ(n) < 3.2n 3
+√
+σ(n) < 3.2 3 n
+√
+max σ(k) ∝ 3 n
+k∈{1,2...,n}
+11
+
+excluding n = 1
+
+13
+
+The proportionality constant of 3.2 was found by numeric methods, and it
+may change as better methods to approximate it are found, but, in figure 7,
+−2
+it was very clear that the slope was
+and that value was found to be very
+3
+√
+accurate and precise. As such it can be said that max σ(k) ∝ 3 n. What
+k∈{1,2...,n}
+
+this means that the maximum of the√σ function for integer values between 1
+and n (inclusive) is proportional to 3 n. As seen if figure 1, the σ function is
+chaotic, but its top boundary was well defined. To represent this boundary,
+the max operator from set theory was used. The switch from < to ∝ is
+important as proportionality allows for describing the function in a more
+general way– not just the√upper-boundary.
+Plotting σ(n) and 3.2 3 n better displays the clear boundary:
+
+√
+Figure 9: σ(n) and 3.2 3 n graphed on a Cartesian plot
+
+14
+
+3.5
+
+Computing the Proportionality Constant
+
+Let the proportionality constant (coefficient of
+√
+3
+n ∝ max σ(k)
+k∈{1,2...,n}
+√
+3
+w n ≈ max σ(k)
+
+√
+3
+
+n) be w.
+
+k∈{1,2...,n}
+
+w≈
+
+maxk∈{1,2...,n} σ(k)
+√
+3
+n
+max
+σ(k)
+j
+P
+k∈{1,2...,n}
+√
+3
+
+w = lim
+
+n=1
+
+n
+
+j
+
+j→∞
+
+In the equations above, w is isolated. In the last step, the average expected
+value of w among all positive integers is shown. Using python code12 , the
+predicted values for w were found:
+
+Figure 10: Predicted values for w with j ∈ {1, 2, 3, . . . , 10 000} and a horizontal line at y = π
+12
+
+see appendix
+
+15
+
+√
+As seen, computationally, w approaches π. So, π 3 n ≈ max σ(k), and
+k∈{1,2...,n}
+√
+ς(n) . π 3 n
+The fact that this limit converges
+provides additional evidence that the
+√
+3
+estimate that max σ(k) ∝ n. As having an incorrect exponent would
+k∈{1,2...,n}
+
+result in a divergent series.
+An interesting thing to note about figure 10 is that the initial estimate
+for w is bad
+and then it quickly converges to π. If w is set to π, and the
+√
+3
+σ(n) . π n upper-bound is checked for small values of n, it would seem
+incorrect. For example, using the graph, the best estimate for w for n < 500
+would be w = 3 instead of w = π. This means that w = π is useful for the σ
+(or ς) function as a whole, or large values/ranges of those functions but not
+necessarily for a small set of numbers.
+Another interesting observation in figure 10 is the ‘bouncing’ convergence
+(i.e. the estimates for w seems to quickly approach, and then slowly move
+away from w = π repeatedly). As of now, I do not have an explanation for
+this property, but hope to find out with more research.
+
+16
+
+4
+
+Conclusion
+
+When I started, it was difficult to find patterns because of how to data was
+presented: in a simple Cartesian graph. As I progressed, I transformed the
+function in various way to make it easier to work with: using a log-log plot,
+isolating points, creating a whole new function, and more. I realized the value
+of modifying something common into something familiar. Next, I used my new
+creations to find patterns such as the lines, point density, and empty spaces.
+But, before I could try to find these patterns I had to call upon my knowledge
+from various fields of mathematics: number-theory, set-theory, algebra, and
+calculus. It really surprised me how much these seemingly separate fields
+are connected. For example, when I was trying to understand why numbers
+with an odd number of factors were uncommon, I had to use number and set
+theory to figure out they are perfect squares; then use calculus to understand
+the spreading effect; and finally algebraically manipulate my solution. At
+school I learnt that calculus was a study of change- smooth change; and here
+I was applying it to the exact opposite: a discrete chaotic function. In the
+beginning I asked “What patterns can be found in the divisor function?”.
+Throughout this essay, novel patterns were found such as the distribution
+of divisors, the rate of growth for σ(n), and empty spaces. There still is an
+additional question: what is the significance of the proportionality constant π
+This question has arisen as a result of my research and I do not yet have an
+answer. This question could not be addressed in this essay due to limitations
+in time, as well as my mathematical ability.
+
+17
+
+5
+5.1
+5.1.1
+
+Appendix
+Code
+Divisor Function
+
+def sigma(num):
+"""
+returns the number or factors for a positive integer n
+"""
+nfactors = 0 # the number of factors of n
+for divisor in range(1, num+1): # divisors: {1,2,3,4..,n}
+if num%divisor == 0: # divides with no remainder
+nfactors += 1 # i.e one new factor found
+return nfactors
+5.1.2
+
+All Data
+
+"""
+outputs factor data for all numbers up to specified amount
+to the `alldata' file
+"""
+from functions import sigma, filewrite
+max_num = int(raw_input("How many data points do you want?\n"))
+data = '{' # to conform to Mathematica format
+for current_number in range(1, max_num): # current_number is {1,2,3..,to-1}
+# appending appropriate ratio to data
+data += str(sigma(current_number)/float(current_number)) + ', '
+data += str(sigma(max_num)/float(max_num)) + '}' # last point: to; "}"
+# to conform to Mathematica
+filewrite('alldata', data)
+5.1.3
+
+Top Row
+
+"""
+finds toprow points and outputs to `toprow' file
+"""
+from functions import filewrite, sigma
+18
+
+# first; sigma; filewrite
+TOP = int(raw_input("How many toprow points do you want to go through?\n"))
+faclst = map(sigma, range(1, TOP+1))
+found = []
+nfl = [] # in the format [number, ratio]
+for r in range(len(faclst)):
+i=[r,faclst[r]]
+if i[1] not in found:
+found.append(i[1])
+nfl.append([i[0]+1, float(i[1])/(i[0]+1)])
+del faclst
+del found
+out = '{'
+for i in nfl:
+out += '{'+str(i[0])+','+str(i[1])+'},'
+out = out[0:len(out)-1]
+out += '}'
+filewrite('toprow', out)
+5.1.4
+
+Finding the Proportionality Constant
+
+from functions import sigma, filewrite
+compare_to=int(raw_input("Till what n value to compare to?\n"))
+output="{"
+for limit in range(1,compare_to+1):
+data_set=[]
+max_sigma=-1
+for n in range(1,limit):
+divs=sigma(n)
+if divs>max_sigma:
+max_sigma=divs
+data_set.append(1/((float(i)**(1/3.))/max_sigma))
+output+='{'+str(limit)+','+str(sum(data_set)/limit)+'},'
+print limit*1./compare_to
+output=output[0:-1]
+output+='}'
+filewrite("testfile",output)
+19
+
+6
+
+References
+
+Humphrys, M. (n.d.). Chaotic functions. Retrieved September 4, 2018,
+from http://computing.dcu.ie/∼humphrys/Notes/Neural/chaos.html
+
+Séroul, R. (2000). Programming for mathematicians. Berlin: Springer.
+
+Steyn, B. (2012, May 26). How RSA Works With Examples. Retrieved September 4, 2018, from http://doctrina.org/How-RSA-Works-WithExamples.html
+
+20
+
+

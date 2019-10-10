@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{sigma}\PYG{p}{(}\PYG{n}{num}\PYG{p}{):}
+	\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{	returns the number or factors for a positive integer n}
+\PYG{l+s+sd}{	\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+	\PYG{n}{nfactors} \PYG{o}{=} \PYG{l+m+mi}{0} \PYG{c+c1}{\PYGZsh{} the number of factors of n}
+	\PYG{k}{for} \PYG{n}{divisor} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{num}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{):} \PYG{c+c1}{\PYGZsh{} divisors: \PYGZob{}1,2,3,4..,n\PYGZcb{}}
+		\PYG{k}{if} \PYG{n}{num}\PYG{o}{\PYGZpc{}}\PYG{n}{divisor} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:} \PYG{c+c1}{\PYGZsh{} divides with no remainder}
+			\PYG{n}{nfactors} \PYG{o}{+=} \PYG{l+m+mi}{1} \PYG{c+c1}{\PYGZsh{} i.e one new factor found}
+	\PYG{k}{return} \PYG{n}{nfactors}
+\end{Verbatim}

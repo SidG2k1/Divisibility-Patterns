@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{outputs factor data for all numbers up to specified amount}
+\PYG{l+s+sd}{to the `alldata\PYGZsq{} file}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{k+kn}{from} \PYG{n+nn}{functions} \PYG{k+kn}{import} \PYG{n}{sigma}\PYG{p}{,} \PYG{n}{filewrite}
+
+\PYG{n}{max\PYGZus{}num} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb}{raw\PYGZus{}input}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}How many data points do you want?}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{))}
+\PYG{n}{data} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZob{}\PYGZsq{}} \PYG{c+c1}{\PYGZsh{} to conform to Mathematica format															 \PYGZsq{}\PYGZob{}\PYGZsq{}}
+\PYG{k}{for} \PYG{n}{current\PYGZus{}number} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{max\PYGZus{}num}\PYG{p}{):} \PYG{c+c1}{\PYGZsh{} current\PYGZus{}number is \PYGZob{}1,2,3..,to\PYGZhy{}1\PYGZcb{}}
+    \PYG{c+c1}{\PYGZsh{} appending appropriate ratio to data}
+    \PYG{n}{data} \PYG{o}{+=} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{sigma}\PYG{p}{(}\PYG{n}{current\PYGZus{}number}\PYG{p}{)}\PYG{o}{/}\PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{current\PYGZus{}number}\PYG{p}{))} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}, \PYGZsq{}}
+\PYG{n}{data} \PYG{o}{+=} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{sigma}\PYG{p}{(}\PYG{n}{max\PYGZus{}num}\PYG{p}{)}\PYG{o}{/}\PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{max\PYGZus{}num}\PYG{p}{))} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}\PYGZcb{}\PYGZsq{}} \PYG{c+c1}{\PYGZsh{} last point: to; \PYGZdq{}\PYGZcb{}\PYGZdq{}}
+					         \PYG{c+c1}{\PYGZsh{} to conform to Mathematica}
+\PYG{n}{filewrite}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}alldata\PYGZsq{}}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}
+\end{Verbatim}

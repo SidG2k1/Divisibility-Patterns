@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{finds toprow points and outputs to `toprow\PYGZsq{} file}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{k+kn}{from} \PYG{n+nn}{functions} \PYG{k+kn}{import} \PYG{n}{filewrite}\PYG{p}{,} \PYG{n}{sigma}
+\PYG{c+c1}{\PYGZsh{} first; sigma; filewrite}
+
+\PYG{n}{TOP} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb}{raw\PYGZus{}input}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}How many toprow points do you want to go through?}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{))}
+\PYG{n}{faclst} \PYG{o}{=} \PYG{n+nb}{map}\PYG{p}{(}\PYG{n}{sigma}\PYG{p}{,} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{TOP}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{n}{found} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{nfl} \PYG{o}{=} \PYG{p}{[]} \PYG{c+c1}{\PYGZsh{} in the format [number, ratio]}
+\PYG{k}{for} \PYG{n}{r} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{faclst}\PYG{p}{)):}
+    \PYG{n}{i}\PYG{o}{=}\PYG{p}{[}\PYG{n}{r}\PYG{p}{,}\PYG{n}{faclst}\PYG{p}{[}\PYG{n}{r}\PYG{p}{]]}
+    \PYG{k}{if} \PYG{n}{i}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{found}\PYG{p}{:}
+        \PYG{n}{found}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{i}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+        \PYG{n}{nfl}\PYG{o}{.}\PYG{n}{append}\PYG{p}{([}\PYG{n}{i}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{i}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}\PYG{o}{/}\PYG{p}{(}\PYG{n}{i}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)])}
+\PYG{k}{del} \PYG{n}{faclst}
+\PYG{k}{del} \PYG{n}{found}
+\PYG{n}{out} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}\PYGZob{}\PYGZsq{}}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{nfl}\PYG{p}{:}
+    \PYG{n}{out} \PYG{o}{+=} \PYG{l+s+s1}{\PYGZsq{}\PYGZob{}\PYGZsq{}}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])}\PYG{o}{+}\PYG{l+s+s1}{\PYGZsq{},\PYGZsq{}}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}\PYG{o}{+}\PYG{l+s+s1}{\PYGZsq{}\PYGZcb{},\PYGZsq{}}
+\PYG{n}{out} \PYG{o}{=} \PYG{n}{out}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{out}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{out} \PYG{o}{+=} \PYG{l+s+s1}{\PYGZsq{}\PYGZcb{}\PYGZsq{}}
+\PYG{n}{filewrite}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}toprow\PYGZsq{}}\PYG{p}{,} \PYG{n}{out}\PYG{p}{)}
+\end{Verbatim}
